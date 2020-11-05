@@ -13,7 +13,7 @@ pipeline {
                         
                         remote.name = "${params['Host']}"
                         remote.host = "${params['Host']}"
-                        remote.user = "${params['Username']}"
+                        remote.user = "${params['Username_Server']}"
                         remote.password = "${params['Password_Server']}"
                         remote.allowAnyHosts = true  
 
@@ -21,7 +21,7 @@ pipeline {
                     }   
                         
                     stage('Retrieve Image from Docker Hub'){
- 
+                        
                         /*params.each {param ->                     */
                         /*    echo "${param.key} and ${param.value}"*/
                         /*}                                         */
