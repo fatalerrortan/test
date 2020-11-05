@@ -33,6 +33,7 @@ pipeline {
                         // Demo
             
                         sh "echo ${cip_pw} > tmp_pw.txt"
+                        sh "cat tmp_pw.txt"
                         sshCommand remote: remote, command: "cat tmp_pw.txt | docker login -u ${params['Username_CIP']} --password-stdin" 
                         sshCommand remote: remote, command: "docker image ls -a" 
                         sshCommand remote: remote, command: "docker pull fatalerrortxl/tanmba_test:${tag}"                            
