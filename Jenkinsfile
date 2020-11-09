@@ -48,7 +48,7 @@ pipeline {
 
                     //     echo "[ ! -d '/home/username/fabman_cicd/' ] || git clone ${repo_url}"
                     //     echo "cd /home/username/fabman_cicd/ && git pull ${repo_url}"
-                        dev repo_url = "https://github.com/fatalerrortan/test.git"  
+                        def repo_url = "https://github.com/fatalerrortan/test.git"  
                         sshCommand remote: remote, command: "ls -al"
                         sshCommand remote: remote, command: "[ -d 'test' ] || git clone ${repo_url}"     
                         sshCommand remote: remote, command: "cd test && git pull origin ${Docker_Compose_Branch}"              
