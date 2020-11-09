@@ -29,45 +29,35 @@ pipeline {
                         def deployment = "${params['Deployment']}"
                         def tag = "${params['Tag']}"
                         def cip_pw = "${params['Password_CIP']}"
-                        
-                        // Demo
             
                         sh "echo ${cip_pw} > tmp_pw.txt"
                         sh "cat tmp_pw.txt"
                         sshCommand remote: remote, command: "cat tmp_pw.txt | docker login -u ${params['Username_CIP']} --password-stdin" 
                         sshCommand remote: remote, command: "docker image ls -a" 
-                        sshCommand remote: remote, command: "docker pull fatalerrortxl/tanmba_test:${tag}"                            
+                        sshCommand remote: remote, command: "docker pull httpd:${tag}"    
+                        sshCommand remote: remote, command: "docker pull redis:${tag}"                         
                         sh "yes | rm tmp_pw.txt"
-
-                        // backup
-                        
-                        // echo "${cip_pw} | docker login release.registry.cip.audi.de -u ${remote.user} --password-stdin"
-                        // echo "docker pull release.registry.cip.audi.de/fabman/audi/${deployment}/fabman:${tag}"
-                        // sh "echo ${cip_pw} > tmp_pw.txt"
-                        // sshCommand remote: remote, command: "cat tmp_pw.txt | docker login release.registry.cip.audi.de -u ${remote.user} --password-stdin" 
-                        // sshCommand remote: remote, command: "docker image ls -a"
-                        // sshCommand remote: remote, command: "docker pull release.registry.cip.audi.de/fabman/audi/${deployment}/fabman:${tag}                            
-                        // sh "yes | rm tmp_pw.txt"
                     
                     }
 
                     stage('Update docker-compose.yml Via Bitbucket'){
 
-                        echo "todo update compose"
+                       
         
-                    //     def repo_url = "https://${remote.user}:${cip_pw}@www.cip.audi.de/bitbucket/scm/fabman/docker_compose.git"
+                    // def repo_url = "https://${remote.user}:${cip_pw}@www.cip.audi.de/bitbucket/scm/fabman/docker_compose.git"
 
                     //     echo "[ ! -d '/home/username/fabman_cicd/' ] || git clone ${repo_url}"
                     //     echo "cd /home/username/fabman_cicd/ && git pull ${repo_url}"
-                       
-                    //    sshCommand remote: remote, command: "[ ! -d '/home/username/fabman_cicd/' ] || git clone ${repo_url}"     
-                    //    sshCommand remote: remote, command: "cd /home/username/fabman_cicd/ && git pull ${repo_url}"              
-
+                        dev repo_url = "https://github.com/fatalerrortan/test.git"  
+                        sshCommand remote: remote, command: "ls -al"
+                        sshCommand remote: remote, command: "[ -d 'test' ] || git clone ${repo_url}"     
+                        sshCommand remote: remote, command: "cd test && git pull origin ${Docker_Compose_Branch}"              
+                        sh "ls -al"
                     }
 
                     stage('Deploy Image'){
 
-                        echo "todo deploy image"
+                        sshCommand remote: remote, command: "pwd" 
 
                         // // stop and remove all running containers 
                         // sshCommand remote: remote, command: "docker stop $(docker ps -aq) && docker rm $(docker ps -aq)"

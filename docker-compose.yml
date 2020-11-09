@@ -1,0 +1,35 @@
+version: "3.7"
+services:
+  fabman:
+    image: httpd:latest
+    network_mode: host
+    # volumes: 
+    #   - /vol2/opt/bt_tmp:/opt/bt_tmp
+    environment:
+      STATUS: test
+    deploy:
+      mode: replicated
+      replicas: 1
+      # placement:
+      #   constraints:
+      #    - node.hostname == iuvo132
+ # it takes effect only when using docker swarm      
+ #   deploy:     
+ #     restart_policy:
+ #       condition: on-failure
+  webui:
+    image: redis:latest
+ #   command: tail -f /dev/null
+    network_mode: host
+    # volumes: 
+    #   - /vol2/opt/bt_tmp:/opt/bt_tmp
+    depends_on:
+      - fabman
+    environment:
+      STATUS: test
+    deploy:
+      mode: replicated
+      replicas: 1
+      # placement:
+      #   constraints:
+      #    - node.hostname == iuvo132 
