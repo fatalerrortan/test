@@ -34,8 +34,8 @@ pipeline {
                         sh "cat tmp_pw.txt"
                         sshCommand remote: remote, command: "cat tmp_pw.txt | docker login -u ${params['Username_CIP']} --password-stdin" 
                         sshCommand remote: remote, command: "docker image ls -a" 
-                        sshCommand remote: remote, command: "docker pull httpd:${tag}"    
-                        sshCommand remote: remote, command: "docker pull redis:${tag}"                         
+                        sshCommand remote: remote, command: "docker pull httpd:${Fabman_Tag}"    
+                        sshCommand remote: remote, command: "docker pull redis:${WebUI_Tag}"                         
                         sh "yes | rm tmp_pw.txt"
                     
                     }
