@@ -58,7 +58,7 @@ pipeline {
                     stage('Deploy Image'){
 
                        // stop and remove all running containers 
-                        sshCommand remote: remote, command: "docker stop $(docker ps -aq) && docker rm $(docker ps -aq)"
+                        sshCommand remote: remote, command: "docker stop \$(docker ps -aq) && docker rm $(docker ps -aq)"
                         // execute docker-compose.yml 
                         sshCommand remote: remote, command: "docker-compose up -d"
                     }                                             
