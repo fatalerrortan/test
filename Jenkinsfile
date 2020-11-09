@@ -57,12 +57,10 @@ pipeline {
 
                     stage('Deploy Image'){
 
-                        sshCommand remote: remote, command: "pwd" 
-
-                        // // stop and remove all running containers 
-                        // sshCommand remote: remote, command: "docker stop $(docker ps -aq) && docker rm $(docker ps -aq)"
-                        // // execute docker-compose.yml 
-                        // sshCommand remote: remote, command: "cd /home/username/fabman_cicd/ && docker-compose up"
+                       // stop and remove all running containers 
+                        sshCommand remote: remote, command: "docker stop $(docker ps -aq) && docker rm $(docker ps -aq)"
+                        // execute docker-compose.yml 
+                        sshCommand remote: remote, command: "docker-compose up -d"
                     }                                             
 				}	
             }
