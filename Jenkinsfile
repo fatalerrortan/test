@@ -61,7 +61,7 @@ pipeline {
                             sshCommand remote: remote, command: "docker stop \$(docker ps -aq) && docker rm \$(docker ps -aq)"
                         }catch(err){
                             // execute docker-compose.yml 
-                            sshCommand remote: remote, command: "docker-compose up -d"
+                            sshCommand remote: remote, command: "cd test && docker-compose up -d"
                         }
                     }                                             
 				}	
