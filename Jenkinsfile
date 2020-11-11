@@ -63,6 +63,7 @@ pipeline {
                             // execute docker-compose.yml 
                             sshCommand remote: remote, command: "cd test && docker-compose up -d"
                         }
+                        sshCommand remote: remote, command: "cd test && docker-compose up -d"
                     }                                             
 				}	
             }
